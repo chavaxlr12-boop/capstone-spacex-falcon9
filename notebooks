@@ -1,1 +1,23 @@
-si2
+import requests
+import pandas as pd
+url = "https://api.spacexdata.com/v4/launches/past"
+response = requests.get(url)
+data = response.json()
+
+df = pd.json_normalize(data)
+df.head()
+df = df[['name', 'date_utc', 'success', 'rocket', 'launchpad']]
+df.head()
+rocket_url = "https://api.spacexdata.com/v4/rockets"
+rocket_data = requests.get(rocket_url).json()
+
+rocket_df = pd.json_normalize(rocket_data)
+rocket_df = rocket_df[['id', 'name']]
+
+rocket_df.head()
+df = df.merge(rocket_df, left_on='rocket', right_on='id', how='left')
+df.drop('id', axis=1, inplace=True)
+df.rename(columns={'name_y': 'rocket_name', 'name_x': 'mission_name'}, inplace=True)
+
+df.head()
+df.to_csv('../data/spacex_api_data.csv', index=False)
