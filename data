@@ -1,1 +1,1 @@
-si
+df.to_csv('../data/spacex_api_data.csv', index=False)
