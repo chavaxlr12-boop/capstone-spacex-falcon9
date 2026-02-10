@@ -21,3 +21,5 @@ df.rename(columns={'name_y': 'rocket_name', 'name_x': 'mission_name'}, inplace=T
 
 df.head()
 df.to_csv('../data/spacex_api_data.csv', index=False)
+
+https://colab.research.google.com/gist/chavaxlr12-boop/df17ad2f5b40b1b70e733684c6d6094b/01_api_spacex-ipynb.ipynb
